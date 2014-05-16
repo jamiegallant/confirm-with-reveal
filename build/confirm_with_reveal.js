@@ -56,7 +56,7 @@
           if ($el.is('form, :input')) {
             return $el.closest('form').removeAttr('data-confirm').submit();
           }
-        }
+        };
 	      
   	    if (option('modal_id') != "default") {
   	    	ok_callback_function = option('ok_callback_function');
@@ -65,7 +65,7 @@
 	      
         modal = $("<div data-reveal id='" + (option('modal_id')) + "Dialog' class='reveal-modal " + (option('modal_class')) + "'>\n  <h2 data-confirm-title class='" + (option('title_class')) + "'></h2>\n  <p data-confirm-body class='" + (option('body_class')) + "'></p>\n  <div data-confirm-footer class='" + (option('footer_class')) + "'>\n    <a data-confirm-cancel class='" + (option('cancel_class')) + "'></a>\n  </div>\n</div>");
         confirm_button = $el.is('a') ? $el.clone() : $('<a/>');
-        confirm_button.removeAttr('data-confirm').attr('class', option('ok_class')).html(option('ok')).on('click', option('ok_callback_function'));
+        confirm_button.removeAttr('data-confirm').attr('class', option('ok_class')).html(option('ok')).on('click', ok_callback_function);
         modal.find('[data-confirm-title]').html(option('title'));
         modal.find('[data-confirm-body]').html(option('body'));
         modal.find('[data-confirm-cancel]').html(option('cancel')).on('click', cancel_callback_function);
