@@ -24,15 +24,7 @@
         ok_class: 'button alert',
         cancel: 'Cancel',
         cancel_class: 'button secondary',
-        ok_callback_function: function(e) {
-          if ($(this).prop('disabled')) {
-            return false;
-          }
-          $el.trigger('confirm.reveal', e);
-          if ($el.is('form, :input')) {
-            return $el.closest('form').removeAttr('data-confirm').submit();
-          }
-        },
+        ok_callback_function: false,
         cancel_callback_function: false
       };
             
@@ -52,13 +44,24 @@
         };
         
         var cancel_callback_function = function(e) {
-	    	jQuery("#"+ option('modal_id') +"Dialog").foundation('reveal', 'close');
-	    	return $el.trigger('cancel.reveal', e);
-	    };
+  	    	jQuery("#"+ option('modal_id') +"Dialog").foundation('reveal', 'close');
+  	    	return $el.trigger('cancel.reveal', e);
+  	    };
+
+        var ok_callback_function = function(e) {
+          if ($(this).prop('disabled')) {
+            return false;
+          }
+          $el.trigger('confirm.reveal', e);
+          if ($el.is('form, :input')) {
+            return $el.closest('form').removeAttr('data-confirm').submit();
+          }
+        }
 	      
-	    if (option('modal_id') != "default") {
-	    	cancel_callback_function = option('cancel_callback_function');
-	    }
+  	    if (option('modal_id') != "default") {
+  	    	ok_callback_function = option('ok_callback_function');
+          cancel_callback_function = option('cancel_callback_function');
+  	    }
 	      
         modal = $("<div data-reveal id='" + (option('modal_id')) + "Dialog' class='reveal-modal " + (option('modal_class')) + "'>\n  <h2 data-confirm-title class='" + (option('title_class')) + "'></h2>\n  <p data-confirm-body class='" + (option('body_class')) + "'></p>\n  <div data-confirm-footer class='" + (option('footer_class')) + "'>\n    <a data-confirm-cancel class='" + (option('cancel_class')) + "'></a>\n  </div>\n</div>");
         confirm_button = $el.is('a') ? $el.clone() : $('<a/>');
